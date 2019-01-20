@@ -1,13 +1,22 @@
 package com.ddd.attendance.check.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ddd.attendance.check.R
+import com.ddd.attendance.check.base.DDDActivity
+import com.ddd.attendance.check.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DDDActivity<ActivityMainBinding>() {
+    override val layoutResource: Int
+        get() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setDataBinding()
+    }
+
+    private fun setDataBinding() {
+        viewDataBinding.apply {
+
+        }
     }
 }
