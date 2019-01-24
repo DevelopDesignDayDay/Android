@@ -7,8 +7,7 @@
 ### Architecture Pattern
 - MVVM
 
-### ReactiveX
-- rxKotlin
+### Coroutine
 
 ### DI(Dependency injection)
 - Dagger2
