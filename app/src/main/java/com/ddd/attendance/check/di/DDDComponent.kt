@@ -9,7 +9,11 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [AndroidSupportInjectionModule::class, NetworkModule::class, ViewModelModule::class, ActivityBindingModule::class]
+    modules = [
+        AndroidSupportInjectionModule::class,
+        NetworkModule::class,
+        ViewModelModule::class,
+        ActivityBindingModule::class]
 )
 interface DDDComponent {
     @Component.Builder
