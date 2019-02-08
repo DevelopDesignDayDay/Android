@@ -1,6 +1,7 @@
 import com.ddd.attendance.check.DDDApplication
 import com.ddd.attendance.check.di.module.ActivityBindingModule
 import com.ddd.attendance.check.di.module.NetworkModule
+import com.ddd.attendance.check.di.module.RepositoryModule
 import com.ddd.attendance.check.di.module.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +14,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         NetworkModule::class,
         ViewModelModule::class,
-        ActivityBindingModule::class]
+        ActivityBindingModule::class,
+        RepositoryModule::class]
 )
 interface DDDComponent {
     @Component.Builder
