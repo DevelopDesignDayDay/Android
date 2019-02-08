@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DDD 출석체크</string>
+
+    <!--로그인 화면-->
+    <string name="login_special_title">반가워요 회원님</string>
+    <string name="login_middle_title">디디디 출석체크 앱입니다.</string>
+    <string name="login_bottom_title">오신걸 환영합니다.</string>
+    <string name="login_input_id_hint">아이디를 입력해주세요.</string>
+    <string name="login_input_pw_hint">비밀번호를 입력해주세요.</string>
+    <string name="login">로그인</string>
+
 </resources>

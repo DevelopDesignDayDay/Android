@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="black">#000</color>
+
+    <!--로그인 화면-->
+    <color name="login_special_title">#333333</color>
+    <color name="login_sub_title">#666666</color>
+    <color name="login_edit_hint">#bbbaba</color>
+    <color name="login_impossible_btn">#999999</color>
 </resources>
