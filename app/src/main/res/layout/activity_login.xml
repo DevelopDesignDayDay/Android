@@ -9,7 +9,6 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
             android:focusableInTouchMode="true"
             android:paddingStart="35dp"
             android:paddingEnd="35dp"
@@ -70,12 +69,13 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/editID"
                 android:layout_width="match_parent"
+                android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onIDTextChanged(text)}"
+                android:text="@={loginViewModel.editID}"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textSize="12dp"
                 tools:ignore="SpUsage" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editPWLayout"
                 android:layout_width="match_parent"
@@ -92,6 +92,8 @@
                 android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/editPW"
+                android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onPWTextChanged(text)}"
+                android:text="@={loginViewModel.editPW}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -105,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:background="@drawable/login_btn_state"
-            android:enabled="false"
+            android:enabled="@{loginViewModel.btnEnableLogin ? true : false}"
             android:onClick="@{()->loginViewModel.login()}"
             android:text="@string/login"
             android:textColor="@android:color/white"

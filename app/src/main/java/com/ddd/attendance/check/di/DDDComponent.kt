@@ -13,6 +13,7 @@ import javax.inject.Singleton
         ViewModelModule::class,
         ActivityBindingModule::class,
         AppModule::class,
+        DataSource::class,
         RepositoryModule::class]
 )
 interface DDDComponent {

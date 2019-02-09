@@ -13,43 +13,34 @@
     android:focusableInTouchMode="true">
 
     <ImageView
-        android:id="@+id/imgAttendanceOutside"
-        android:layout_width="211dp"
-        android:layout_height="211dp"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/attendance_img_input_outside"
+        android:id="@+id/imgAttendanceInput"
+        android:layout_width="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tvExplanation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imgAttendanceInner"
-        android:layout_width="183dp"
-        android:layout_height="183dp"
-        android:background="@drawable/attendance_img_input_inner"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAttendanceOutside"
-        app:layout_constraintLeft_toLeftOf="@+id/imgAttendanceOutside"
-        app:layout_constraintRight_toRightOf="@+id/imgAttendanceOutside"
-        app:layout_constraintTop_toTopOf="@+id/imgAttendanceOutside"
-        tools:ignore="ContentDescription" />
+        android:layout_marginBottom="28dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attendance_img" />
 
     <EditText
-        android:layout_width="90dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@android:color/white"
-        android:gravity="center"
         android:inputType="number"
         android:maxLength="2"
+        android:layout_marginBottom="68dp"
+        android:maxLines="1"
+        android:minEms="1"
+        android:textColor="@android:color/white"
+        android:textCursorDrawable="@android:color/white"
         android:textColorHighlight="@android:color/white"
         android:textSize="84dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAttendanceInput"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAttendanceInner"
-        app:layout_constraintLeft_toLeftOf="@+id/imgAttendanceInner"
-        app:layout_constraintRight_toRightOf="@+id/imgAttendanceInner"
-        app:layout_constraintTop_toTopOf="@+id/imgAttendanceInner"
-        app:layout_constraintVertical_bias="0"
+        app:layout_constraintLeft_toLeftOf="@+id/imgAttendanceInput"
+        app:layout_constraintRight_toRightOf="@+id/imgAttendanceInput"
+        app:layout_constraintTop_toTopOf="@+id/imgAttendanceInput"
         tools:ignore="Autofill,LabelFor,SpUsage" />
 
     <TextView
