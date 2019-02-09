@@ -10,4 +10,5 @@
     <color name="login_sub_title">#666666</color>
     <color name="login_edit_hint">#bbbaba</color>
     <color name="login_impossible_btn">#999999</color>
+
 </resources>

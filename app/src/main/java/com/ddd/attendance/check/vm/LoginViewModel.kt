@@ -10,8 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) : ViewModel() {
-    fun test() {
-        Log.e("", "")
+    fun login() {
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             try {
                 val items = loginRepository.login("ddd1", "ddd1")
