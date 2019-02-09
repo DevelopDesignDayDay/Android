@@ -1,20 +1,16 @@
 ## DDD. 팀원들 출석체크를 위한 안드로이드 버전입니다.
 
 
-### Language
+### Spec
 - Kotlin
+- Dagger2
+- Coroutine
+- AAC ViewModel
+- LiveData
+- Room
+- okhttp3 + Retrofit2
+- DataBinding
 
 ### Architecture Pattern
-- MVVM
+![image](https://github.com/DevelopDesignDayDay/Android/blob/master/Architecture.001.png)
 
-### Coroutine
-
-### DI(Dependency injection)
-- Dagger2
-
-### NetWork
-- okhttp3 + Retrofit2
-
-### More
-- DataBinding
-- Rxbinding3
