@@ -40,5 +40,6 @@ inline fun <reified T> SharedPreferences.put(key: String, value: T): T {
     return value
 }
 object SharedPreferHelper{
+    const val DATA_PREFER = "ddd"
     const val TOKEN_KEY="token"
 }

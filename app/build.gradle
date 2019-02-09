@@ -17,6 +17,8 @@ android {
         props.load(new FileInputStream(new File('secret.properties')))
 
         buildConfigField "String", "BASE_URL", "\"${props['BASE_URL']}\""
+        buildConfigField "String", "BASIC_AUTH_USER_NAME", "\"${props['BASIC_AUTH_USER_NAME']}\""
+        buildConfigField "String", "BASIC_AUTH_USER_PASSWORD", "\"${props['BASIC_AUTH_USER_PASSWORD']}\""
     }
 
     buildTypes {
@@ -40,7 +42,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation "com.google.android.material:material:1.1.0-alpha03"
     testImplementation 'junit:junit:4.12'

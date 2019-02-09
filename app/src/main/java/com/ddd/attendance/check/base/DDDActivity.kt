@@ -13,7 +13,6 @@ abstract class DDDActivity<T : ViewDataBinding, R : ViewModel> : DaggerAppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewDataBinding = DataBindingUtil.setContentView(this, layoutResource)
     }
 }
