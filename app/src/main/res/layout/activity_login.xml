@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable name="loginViewModel" type="com.ddd.attendance.check.vm.LoginViewModel"/>
     </data>
 
@@ -13,7 +14,14 @@
             android:paddingStart="35dp"
             android:paddingEnd="35dp"
             tools:context=".ui.LoginActivity">
-
+        <ProgressBar
+                android:visibility="@{loginViewModel.progressbar? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvSpecialTitle"
             android:layout_width="wrap_content"

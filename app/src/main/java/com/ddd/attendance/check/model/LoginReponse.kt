@@ -11,5 +11,6 @@ data class LoginResponse(
 data class User(
     val account: String,
     val id: Int,
-    val name: String
+    val name: String,
+    val type: Int
 )
