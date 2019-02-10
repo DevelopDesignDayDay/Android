@@ -17,7 +17,7 @@ class SplashViewModel @Inject constructor(private val userRepository: UserReposi
     private val _startLoginActivity = SingleLiveEvent<Class<LoginActivity>>()
 
     val startMainActivity: LiveData<Class<MainActivity>> get() = _startMainActivity
-    val startLoginActivity: LiveData<Class<MainActivity>> get() = _startMainActivity
+    val startLoginActivity: LiveData<Class<LoginActivity>> get() = _startLoginActivity
 
     fun checkUser() {
         GlobalScope.launch {

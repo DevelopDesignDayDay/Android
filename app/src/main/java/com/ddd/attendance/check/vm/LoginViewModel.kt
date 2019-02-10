@@ -16,8 +16,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-        private val loginRepository: LoginRepository,
-        private val userRepository: UserRepository) : ViewModel() {
+    private val loginRepository: LoginRepository,
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     private val _btnEnableLogin = MutableLiveData<Boolean>()
