@@ -1,14 +1,12 @@
 package com.ddd.attendance.check.data.login.source
 
-import android.app.Application
-import android.content.Context
-import com.ddd.attendance.check.extension.SharedPreferHelper
-import com.ddd.attendance.check.extension.put
+import com.ddd.attendance.check.db.DDDDataBase
+import com.ddd.attendance.check.db.entity.User
 import javax.inject.Inject
 
-class LoginLocalDataSource @Inject constructor(val application: Application) {
+class LoginLocalDataSource @Inject constructor(private val dddDataBase: DDDDataBase) {
 
-    fun saveToken(token: String) {
-        application.getSharedPreferences(SharedPreferHelper.DATA_PREFER, Context.MODE_PRIVATE).put(SharedPreferHelper.TOKEN_KEY, token)
+    suspend fun saveUser(user: User) {
+        dddDataBase.userDao().addUser(user)
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ddd.attendance.check.common.NetworkHelper
 import com.ddd.attendance.check.common.NetworkHelper.SUCCESS
 import com.ddd.attendance.check.data.login.LoginRepository
+import com.ddd.attendance.check.db.entity.User
 import com.ddd.attendance.check.ui.MainActivity
 import com.ddd.attendance.check.utill.SingleLiveEvent
 import kotlinx.coroutines.GlobalScope
@@ -45,7 +46,15 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
                         ?: EMPTY_PW)
                 response.body()?.let { result ->
                     if (result.status == SUCCESS) {
-                        loginRepository.saveToken(result.accessToken)
+                        loginRepository.saveUsers(
+                            User(
+                                result.user.id,
+                                result.user.name,
+                                result.user.account,
+                                result.accessToken,
+                                result.refreshToken
+                            )
+                        )
                         _startMainActivity.postValue(MainActivity::class.java)
                     } else {
                         _error.postValue(result.message ?: NetworkHelper.ERROR_MSG)
