@@ -10,6 +10,7 @@
 - Room
 - okhttp3 + Retrofit2
 - DataBinding
+- AndroidX
 
 ### Architecture Pattern
 ![image](https://github.com/DevelopDesignDayDay/Android/blob/master/Architecture.001.png)
