@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ddd.attendance.check.vm.LoginViewModel
 import com.ddd.attendance.check.vm.MainViewModel
+import com.ddd.attendance.check.vm.SplashViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -12,6 +13,11 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashViewModel::class)
+    abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -1,8 +1,8 @@
 package com.ddd.attendance.check.di.module
 
 import com.ddd.attendance.check.api.ApiService
-import com.ddd.attendance.check.data.login.source.LoginLocalDataSource
-import com.ddd.attendance.check.data.login.source.LoginRemoteDataSource
+import com.ddd.attendance.check.data.source.login.LoginRemoteDataSource
+import com.ddd.attendance.check.data.source.user.UserLocalDataSource
 import com.ddd.attendance.check.db.DDDDataBase
 import dagger.Module
 import dagger.Provides
@@ -13,8 +13,8 @@ class DataSource {
 
     @Provides
     @Singleton
-    fun loginLocalDataSource(dddDataBase: DDDDataBase): LoginLocalDataSource {
-        return LoginLocalDataSource(dddDataBase)
+    fun userLocalDataSource(dddDataBase: DDDDataBase): UserLocalDataSource {
+        return UserLocalDataSource(dddDataBase)
     }
 
     @Provides

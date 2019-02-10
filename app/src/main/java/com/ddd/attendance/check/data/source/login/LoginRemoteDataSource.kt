@@ -1,4 +1,4 @@
-package com.ddd.attendance.check.data.login.source
+package com.ddd.attendance.check.data.source.login
 
 import com.ddd.attendance.check.api.ApiService
 import com.ddd.attendance.check.model.LoginResponse
