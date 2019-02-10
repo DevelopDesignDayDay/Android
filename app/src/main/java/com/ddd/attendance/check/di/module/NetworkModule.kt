@@ -1,39 +1,35 @@
 package com.ddd.attendance.check.di.module
 
-import android.content.Context
 import com.ddd.attendance.check.BuildConfig
-import com.ddd.attendance.check.DDDApplication
 import com.ddd.attendance.check.api.ApiService
-import com.ddd.attendance.check.extension.SharedPreferHelper
-import com.ddd.attendance.check.extension.SharedPreferHelper.DATA_PREFER
-import com.ddd.attendance.check.extension.get
+import com.ddd.attendance.check.db.DDDDataBase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.timeunit.TimeUnit
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 @Module
 class NetworkModule {
 
     @Provides
-    fun provideInterceptor(application: DDDApplication): Interceptor {
+    fun provideInterceptor(dddDataBase: DDDDataBase): Interceptor {
         return Interceptor { chain ->
             val request = chain.request()
-            val token = application.getSharedPreferences(DATA_PREFER, Context.MODE_PRIVATE).get(SharedPreferHelper.TOKEN_KEY, "")
+            val users = dddDataBase.userDao().getUsers()
             val headers = request.headers().newBuilder()
                     .add(HEADER_AUTH_PARAM,
-                            if (token.isNotEmpty()) token
-                            else Credentials.basic(BuildConfig.BASIC_AUTH_USER_NAME, BuildConfig.BASIC_AUTH_USER_PASSWORD))
-                    .build()
+                        if (!users.isNullOrEmpty()) users[0].accessToken
+                        else Credentials.basic(BuildConfig.BASIC_AUTH_USER_NAME, BuildConfig.BASIC_AUTH_USER_PASSWORD)
+                    ).build()
             chain.proceed(request.newBuilder().headers(headers).build())
         }
     }
