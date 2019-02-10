@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/dialog_ddd_background"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/ic_launcher_background"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:paddingEnd="60dp"
+            android:paddingStart="60dp"
+            android:text="@string/attendance_dialog_already"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            tools:ignore="SpUsage"/>
+
+    <Button
+            android:id="@+id/btnOK"
+            android:textSize="18dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="49dp"
+            android:background="@drawable/dialog_ddd_btn_background"
+            android:text="@string/attendance_dialog_ok"
+            android:textColor="@color/login_special_title"
+            tools:ignore="SpUsage"/>
+</LinearLayout>

@@ -9,10 +9,11 @@
     <string name="login_input_pw_hint">비밀번호를 입력해주세요.</string>
     <string name="login">로그인</string>
 
-
     <!--출석체크 화면-->
     <string name="attendance">출석체크</string>
     <string name="attendance_input_explanation">번호 입력해주세요</string>
     <string name="attendance_guide_top">라운드에 번호를 입력해주셔야 출석 체크 버튼이</string>
     <string name="attendance_guide_bottom">활성화가 되어 출석 체크가 가능합니다.</string>
+    <string name="attendance_dialog_already">이미 출석체크가\n되었습니다.</string>
+    <string name="attendance_dialog_ok">확인하였습니다.</string>
 </resources>

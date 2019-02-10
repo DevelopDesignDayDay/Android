@@ -9,6 +9,7 @@ class User(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "account") val account: String,
+    @ColumnInfo(name = "type") val type: Int,
     @ColumnInfo(name = "accessToken") val accessToken: String,
     @ColumnInfo(name = "refreshToken") val refreshToken: String
 )

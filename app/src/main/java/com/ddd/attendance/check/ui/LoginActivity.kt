@@ -29,7 +29,7 @@ class LoginActivity : DDDActivity<ActivityLoginBinding, LoginViewModel>() {
         viewModel.error.observe(this, Observer { msg ->
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         })
-        viewModel.startMainActivity.observe(this, Observer {
+        viewModel.startActivity.observe(this, Observer {
             startActivity(Intent(this, it))
             finish()
         })
