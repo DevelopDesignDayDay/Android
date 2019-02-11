@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="black">#000</color>
+    <color name="white">#fff</color>
 
     <!--로그인 화면-->
     <color name="login_special_title">#333333</color>
@@ -11,4 +12,8 @@
     <color name="login_edit_hint">#bbbaba</color>
     <color name="login_impossible_btn">#999999</color>
 
+
+    <!--출석체크 화면-->
+    <color name="attendance_admin_background_color">#1a1a1a</color>
+    <color name="attendance_basic_background_color">#fff</color>
 </resources>

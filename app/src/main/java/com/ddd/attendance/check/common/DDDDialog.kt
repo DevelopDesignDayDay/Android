@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.dialog_ddd.*
 
 
-class DDDDialog(context: Context) : Dialog(context) {
-    lateinit var dddDialogEventListener: DDDDialogEventListener
+class DDDDialog(context: Context, userType: UserType) : Dialog(context) {
+    private lateinit var dddDialogEventListener: DDDDialogEventListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
