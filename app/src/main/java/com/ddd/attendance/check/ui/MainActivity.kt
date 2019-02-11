@@ -1,7 +1,12 @@
 package com.ddd.attendance.check.ui
 
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.attendance.check.R
@@ -24,18 +29,35 @@ class MainActivity : DDDActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDataBinding()
-        setUpDialog()
+        setUpLiveData()
+        viewModel.checkUserType()
+
+        btnAttendance.setOnClickListener {
+            viewModel.showDDDDialog()
+        }
     }
 
-    private fun setUpDialog() {
-        btnAttendance.setOnClickListener {
-            DDDDialog(this)
+    private fun setUpLiveData() {
+        viewModel.showDDDDialog.observe(this, Observer { userType ->
+            DDDDialog(this, userType)
                 .setDialogListener(object : DDDDialog.DDDDialogEventListener {
                     override fun onClick(dialog: Dialog) {
                         dialog.dismiss()
                     }
                 }).show()
-        }
+        })
+
+        viewModel.isAdmin.observe(this, Observer { isAdmin ->
+            val view = window.decorView
+            if (isAdmin) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = ContextCompat.getColor(this, R.color.attendance_admin_background_color)
+            } else {
+                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window.statusBarColor = Color.WHITE
+            }
+        })
     }
 
     private fun setDataBinding() {
