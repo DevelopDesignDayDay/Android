@@ -15,3 +15,5 @@
 ### Architecture Pattern
 ![image](https://github.com/DevelopDesignDayDay/Android/blob/master/Architecture.001.png)
 
+![image](https://github.com/DevelopDesignDayDay/Android/blob/master/ddd-dagger.001.png)
+
