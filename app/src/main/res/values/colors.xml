@@ -16,4 +16,5 @@
     <!--출석체크 화면-->
     <color name="attendance_admin_background_color">#1a1a1a</color>
     <color name="attendance_basic_background_color">#fff</color>
+    <color name="attendance_admin_dialog_color">#ef3024</color>
 </resources>

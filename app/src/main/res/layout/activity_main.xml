@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable name="mainViewModel" type="com.ddd.attendance.check.vm.MainViewModel"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,7 @@
         android:fitsSystemWindows="true"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:background="@{mainViewModel.isAdmin?@color/attendance_admin_background_color:@color/attendance_basic_background_color}"
+        android:background="@{safeUnbox(mainViewModel.isAdmin)?@color/attendance_admin_background_color:@color/attendance_basic_background_color}"
         android:focusableInTouchMode="true">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -22,7 +23,8 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="28dp"
             android:layout_height="wrap_content"
-            android:background="@{mainViewModel.isAdmin?@drawable/attendance_amin:@drawable/attendance_img}"/>
+            android:background="@{safeUnbox(mainViewModel.isAdmin)?@drawable/attendance_amin:@drawable/attendance_img}"
+            tools:background="@drawable/attendance_amin"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
@@ -40,6 +42,7 @@
             android:textCursorDrawable="@android:color/white"
             android:textColorHighlight="@android:color/white"
             android:textSize="84dp"
+            android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imgAttendanceInput"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="@+id/imgAttendanceInput"
@@ -48,12 +51,28 @@
             tools:ignore="Autofill,LabelFor,SpUsage"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.VISIBLE:View.GONE}"
+            android:text='@{safeUnbox(mainViewModel.isAttendanceNumber>0)?String.valueOf(safeUnbox(mainViewModel.isAttendanceNumber)):""}'
+            android:textColor="@android:color/black"
+            android:textSize="84dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAttendanceInput"
+            app:layout_constraintLeft_toLeftOf="@+id/imgAttendanceInput"
+            app:layout_constraintRight_toRightOf="@+id/imgAttendanceInput"
+            app:layout_constraintTop_toTopOf="@+id/imgAttendanceInput"
+            tools:ignore="Autofill,LabelFor,SpUsage"
+            tools:text="12"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvExplanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
-            android:text="@{mainViewModel.isAdmin()?@string/attendance_admin_start_title:@string/attendance_input_explanation}"
-            android:textColor="@{mainViewModel.isAdmin?@color/white:@color/login_special_title}"
+            android:text="@{safeUnbox(mainViewModel.isAdmin)?@string/attendance_admin_start_title:@string/attendance_input_explanation}"
+            android:textColor="@{safeUnbox(mainViewModel.isAdmin)?@color/white:@color/login_special_title}"
             android:textSize="22dp"
             app:layout_constraintBottom_toTopOf="@+id/tvGuideTop"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -65,8 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
-            android:text="@{mainViewModel.isAdmin()?@string/attendance_admin_guide_top:@string/attendance_guide_top}"
-            android:textColor="@{mainViewModel.isAdmin?@color/white:@color/login_sub_title}"
+            android:text="@{safeUnbox(mainViewModel.isAdmin)?@string/attendance_admin_guide_top:@string/attendance_guide_top}"
+            android:textColor="@{safeUnbox(mainViewModel.isAdmin)?@color/white:@color/login_sub_title}"
             android:textSize="13dp"
             app:layout_constraintBottom_toTopOf="@+id/tvGuideBottom"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -78,15 +97,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="87dp"
             android:gravity="center"
-            android:text="@{mainViewModel.isAdmin?@string/attendance_admin_guide_bottom:@string/attendance_guide_bottom}"
-            android:textColor="@{mainViewModel.isAdmin?@color/white:@color/login_sub_title}"
+            android:text="@{safeUnbox(mainViewModel.isAdmin)?@string/attendance_admin_guide_bottom:@string/attendance_guide_bottom}"
+            android:textColor="@{safeUnbox(mainViewModel.isAdmin)?@color/white:@color/login_sub_title}"
             android:textSize="13dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnAttendance"
+
+            app:layout_constraintBottom_toTopOf="@+id/btnAdminAttendance"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="SpUsage"/>
     <Button
-            android:id="@+id/btnAttendance"
+            android:id="@+id/btnAdminAttendance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
@@ -94,11 +114,29 @@
             android:layout_marginBottom="70dp"
             android:background="@drawable/login_btn_state"
             android:elevation="11dp"
+            android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.VISIBLE : View.INVISIBLE}"
             android:onClick="@{()->mainViewModel.attendance()}"
-            android:enabled="@{safeUnbox(mainViewModel.btnEnableAttendance)? true : false}"
-            android:text="@{mainViewModel.isAdmin?@string/attendance_start:@string/attendance}"
+            android:text="@{safeUnbox(mainViewModel.isAttendanceStart)? @string/attendance_end : @string/attendance_start}"
             android:textColor="@android:color/white"
             android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="SpUsage"/>
+
+    <Button
+            android:id="@+id/btnBasicAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/login_btn_state"
+            android:elevation="11dp"
+            android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.GONE : View.VISIBLE}"
+            android:onClick="@{()->mainViewModel.attendance()}"
+            android:enabled="@{safeUnbox(mainViewModel.btnEnableAttendance)? true : false}"
+            android:textColor="@android:color/white"
+            android:textSize="12dp"
+            android:text="@string/attendance"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="SpUsage"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

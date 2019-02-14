@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,10 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.ddd.attendance.check.R
 import com.ddd.attendance.check.base.DDDActivity
 import com.ddd.attendance.check.common.DDDDialog
+import com.ddd.attendance.check.common.UserType
 import com.ddd.attendance.check.databinding.ActivityMainBinding
 import com.ddd.attendance.check.utill.lazyThreadSafetyNone
 import com.ddd.attendance.check.vm.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
@@ -31,20 +32,20 @@ class MainActivity : DDDActivity<ActivityMainBinding, MainViewModel>() {
         setDataBinding()
         setUpLiveData()
         viewModel.checkUserType()
-
-        btnAttendance.setOnClickListener {
-            viewModel.showDDDDialog()
-        }
     }
 
     private fun setUpLiveData() {
-        viewModel.showDDDDialog.observe(this, Observer { userType ->
-            DDDDialog(this, userType)
+        viewModel.showDDDDialog.observe(this, Observer { data: Pair<UserType, String> ->
+            DDDDialog(this, data)
                 .setDialogListener(object : DDDDialog.DDDDialogEventListener {
                     override fun onClick(dialog: Dialog) {
                         dialog.dismiss()
                     }
                 }).show()
+        })
+
+        viewModel.showToastError.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.isAdmin.observe(this, Observer { isAdmin ->

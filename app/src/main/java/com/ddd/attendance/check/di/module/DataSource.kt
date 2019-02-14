@@ -1,6 +1,7 @@
 package com.ddd.attendance.check.di.module
 
 import com.ddd.attendance.check.api.ApiService
+import com.ddd.attendance.check.data.source.attendance.AttendanceRemoteDataSource
 import com.ddd.attendance.check.data.source.login.LoginRemoteDataSource
 import com.ddd.attendance.check.data.source.user.UserLocalDataSource
 import com.ddd.attendance.check.db.DDDDataBase
@@ -21,5 +22,11 @@ class DataSource {
     @Singleton
     fun loginRemoteDataSource(apiService: ApiService): LoginRemoteDataSource {
         return LoginRemoteDataSource(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun attendanceRemoteDataSource(apiService: ApiService): AttendanceRemoteDataSource {
+        return AttendanceRemoteDataSource(apiService)
     }
 }

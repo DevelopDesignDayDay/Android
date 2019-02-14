@@ -2,7 +2,7 @@ package com.ddd.attendance.check.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.ddd.attendance.check.data.UserRepository
+import com.ddd.attendance.check.data.repository.UserRepository
 import com.ddd.attendance.check.ui.LoginActivity
 import com.ddd.attendance.check.ui.MainActivity
 import com.ddd.attendance.check.utill.SingleLiveEvent
