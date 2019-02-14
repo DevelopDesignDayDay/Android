@@ -5,11 +5,15 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.ddd.attendance.check.R
 import com.ddd.attendance.check.base.DDDActivity
 import com.ddd.attendance.check.databinding.ActivitySplashBinding
 import com.ddd.attendance.check.utill.lazyThreadSafetyNone
 import com.ddd.attendance.check.vm.SplashViewModel
+import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
 class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>() {
@@ -24,6 +28,10 @@ class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDataBinding()
+
+        Glide.with(this).asGif().load(R.drawable.splash)
+            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(imgBackground)
+
         viewModel.checkUser()
 
         viewModel.startLoginActivity.observe(this, Observer {

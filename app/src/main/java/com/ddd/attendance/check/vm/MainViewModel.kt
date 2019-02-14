@@ -61,6 +61,22 @@ class MainViewModel @Inject constructor(
         _btnEnableLogin.postValue(true)
     }
 
+    private fun attendanceStartUI(attendanceStart: Attendance?) {
+        attendanceStart?.let { result ->
+            if (result.status == NetworkHelper.SUCCESS) {
+                _isAttendanceNumber.postValue(result.number)
+                _isAttendanceStart.postValue(true)
+            }
+        }
+        showDDDDialog(MSG_ATTENDANCE_START)
+    }
+
+    private fun attendanceEndUI() {
+        _isAttendanceNumber.postValue(EMPTY_NUMBER)
+        _isAttendanceStart.postValue(false)
+        showDDDDialog(MSG_ATTENDANCE_END)
+    }
+
     fun attendance() {
         GlobalScope.launch {
             try {
@@ -87,22 +103,6 @@ class MainViewModel @Inject constructor(
         else _showToastError.postValue(response.body()?.message)
     }
 
-    private fun attendanceStartUI(attendanceStart: Attendance?) {
-        attendanceStart?.let { result ->
-            if (result.status == NetworkHelper.SUCCESS) {
-                _isAttendanceNumber.postValue(result.number)
-                _isAttendanceStart.postValue(true)
-            }
-        }
-        showDDDDialog(MSG_ATTENDANCE_START)
-    }
-
-    private fun attendanceEndUI() {
-        _isAttendanceNumber.postValue(0)
-        _isAttendanceStart.postValue(false)
-        showDDDDialog(MSG_ATTENDANCE_END)
-    }
-
     private fun attendanceCheck() {
 
     }
@@ -114,5 +114,6 @@ class MainViewModel @Inject constructor(
     companion object {
         const val MSG_ATTENDANCE_START = "출석체크가 시작되었습니다."
         const val MSG_ATTENDANCE_END = "출석체크가 종료되었습니다."
+        const val EMPTY_NUMBER = 0
     }
 }

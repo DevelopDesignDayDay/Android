@@ -16,6 +16,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/attendance_admin_background_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/black</item>
+    </style>
+
     <style name="LoginEditTheme" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/darker_gray</item>

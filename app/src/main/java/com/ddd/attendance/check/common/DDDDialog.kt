@@ -9,6 +9,7 @@ import android.util.DisplayMetrics
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.ddd.attendance.check.R
+import com.ddd.attendance.check.vm.MainViewModel
 import kotlinx.android.synthetic.main.dialog_ddd.*
 
 
@@ -21,12 +22,20 @@ class DDDDialog(context: Context, private val data: Pair<UserType, String>) : Di
 
         setInitView()
         setBackGround()
-
+        setDialogMarkImg(data.second)
         tvMessage.text = data.second
         btnOK.setOnClickListener {
             dddDialogEventListener.onClick(this)
             dismiss()
         }
+    }
+
+    private fun setDialogMarkImg(message: String) {
+        val background = ContextCompat.getDrawable(
+            context,
+            if (message == MainViewModel.MSG_ATTENDANCE_START) R.drawable.check_icon else R.drawable.exclamation
+        )
+        imgMark.background = background
     }
 
     private fun setInitView() {
