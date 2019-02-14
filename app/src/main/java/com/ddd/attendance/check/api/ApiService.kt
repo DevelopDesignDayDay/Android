@@ -1,5 +1,6 @@
 package com.ddd.attendance.check.api
 
+import com.ddd.attendance.check.model.Attendance
 import com.ddd.attendance.check.model.LoginResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -12,4 +13,10 @@ interface ApiService {
     @FormUrlEncoded
     @POST("/auth/login")
     fun login(@Field("account") id: String, @Field("password") password: String): Deferred<Response<LoginResponse>>
+
+    @POST("/attends/start")
+    fun attendsStart(): Deferred<Response<Attendance>>
+
+    @POST("/attends/end")
+    fun attendsEnd(): Deferred<Response<Attendance>>
 }

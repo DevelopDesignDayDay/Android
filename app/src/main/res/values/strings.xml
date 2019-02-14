@@ -15,6 +15,7 @@
     <string name="attendance_admin_guide_bottom">멤버분들이 출석 체크가 가능합니다.</string>
     <string name="attendance">출석체크</string>
     <string name="attendance_start">출석시작</string>
+    <string name="attendance_end">출석종료</string>
     <string name="attendance_input_explanation">번호 입력해주세요</string>
     <string name="attendance_guide_top">라운드에 번호를 입력해주셔야 출석 체크 버튼이</string>
     <string name="attendance_guide_bottom">활성화가 되어 출석 체크가 가능합니다.</string>

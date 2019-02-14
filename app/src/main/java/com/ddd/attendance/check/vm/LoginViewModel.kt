@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ddd.attendance.check.common.NetworkHelper
 import com.ddd.attendance.check.common.NetworkHelper.SUCCESS
-import com.ddd.attendance.check.data.LoginRepository
-import com.ddd.attendance.check.data.UserRepository
+import com.ddd.attendance.check.data.repository.LoginRepository
+import com.ddd.attendance.check.data.repository.UserRepository
 import com.ddd.attendance.check.db.entity.User
 import com.ddd.attendance.check.ui.MainActivity
 import com.ddd.attendance.check.utill.SingleLiveEvent

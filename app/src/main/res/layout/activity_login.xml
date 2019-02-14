@@ -15,7 +15,7 @@
             android:paddingEnd="35dp"
             tools:context=".ui.LoginActivity">
         <ProgressBar
-                android:visibility="@{loginViewModel.progressbar? View.VISIBLE : View.GONE}"
+                android:visibility="@{safeUnbox(loginViewModel.progressbar)? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
