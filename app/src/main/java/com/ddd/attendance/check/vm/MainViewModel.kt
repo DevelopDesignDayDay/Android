@@ -4,30 +4,34 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ddd.attendance.check.DDDApplication
 import com.ddd.attendance.check.common.NetworkHelper
 import com.ddd.attendance.check.common.NetworkHelper.ERROR_MSG
 import com.ddd.attendance.check.common.UserType
 import com.ddd.attendance.check.data.repository.AttendanceRepository
 import com.ddd.attendance.check.data.repository.UserRepository
 import com.ddd.attendance.check.model.Attendance
+import com.ddd.attendance.check.utill.SharedPreferences
 import com.ddd.attendance.check.utill.SingleLiveEvent
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.IOException
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val attendanceRepository: AttendanceRepository
+        private val userRepository: UserRepository,
+        private val attendanceRepository: AttendanceRepository,
+        private val dddApplication: DDDApplication
 ) : ViewModel() {
 
     private val _isAdmin = MutableLiveData<Boolean>()
+    private val _isAttendanceNumberCount = MutableLiveData<Int>()
     private val _isAttendanceNumber = MutableLiveData<Int>()
     private val _isAttendanceStart = MutableLiveData<Boolean>()
     private val _btnEnableLogin = MutableLiveData<Boolean>()
     private val _showToastError = MutableLiveData<String>()
 
     val isAdmin: LiveData<Boolean> = _isAdmin
+    val isAttendanceNumberCount: LiveData<Int> = _isAttendanceNumberCount
     val isAttendanceNumber: LiveData<Int> = _isAttendanceNumber
     val isAttendanceStart: LiveData<Boolean> = _isAttendanceStart
     val editNumberAttendance = ObservableField<String>()
@@ -35,6 +39,11 @@ class MainViewModel @Inject constructor(
     val showToastError: LiveData<String> get() = _showToastError
 
     val showDDDDialog = SingleLiveEvent<Pair<UserType, String>>()
+
+
+    init {
+        _isAttendanceStart.value = SharedPreferences.getStatus(dddApplication)
+    }
 
     fun onInputNumberTextChanged(input: CharSequence) {
         editNumberAttendance.set(input.toString())
@@ -73,6 +82,7 @@ class MainViewModel @Inject constructor(
 
     private fun attendanceEndUI() {
         _isAttendanceNumber.postValue(EMPTY_NUMBER)
+        _isAttendanceNumberCount.postValue(EMPTY_NUMBER)
         _isAttendanceStart.postValue(false)
         showDDDDialog(MSG_ATTENDANCE_END)
     }
@@ -93,18 +103,44 @@ class MainViewModel @Inject constructor(
 
     private suspend fun attendanceStart() {
         val response = attendanceRepository.attendanceStart()
-        if (response.isSuccessful) attendanceStartUI(response.body())
-        else _showToastError.postValue(response.body()?.message)
+        if (response.isSuccessful) {
+            SharedPreferences.saveStatus(dddApplication, true)
+            attendanceStartUI(response.body())
+            startTimer()
+        } else {
+            _showToastError.postValue(MSG_ALREADY_START)
+        }
+    }
+
+    private var job: Job? = null
+    private suspend fun startTimer() {
+        CoroutineScope(Dispatchers.Default).launch {
+            job = launch(Dispatchers.Main) {
+                60.countDown()
+            }
+            job?.join()
+        }
     }
 
     private suspend fun attendanceEnd() {
         val response = attendanceRepository.attendsEnd()
-        if (response.isSuccessful) attendanceEndUI()
-        else _showToastError.postValue(response.body()?.message)
+        if (response.isSuccessful) {
+            SharedPreferences.saveStatus(dddApplication, false)
+            attendanceEndUI()
+            if (job != null) job!!.cancel()
+        } else _showToastError.postValue(MSG_ALREADY_START)
     }
 
+    //일반 팀원 출첵 함수
     private fun attendanceCheck() {
 
+    }
+
+    private suspend fun Int.countDown() {
+        for (index in this downTo 1) {
+            _isAttendanceNumberCount.postValue(index)
+            delay(COUNT_DELAY)
+        }
     }
 
     private fun showDDDDialog(message: String) {
@@ -114,6 +150,8 @@ class MainViewModel @Inject constructor(
     companion object {
         const val MSG_ATTENDANCE_START = "출석체크가 시작되었습니다."
         const val MSG_ATTENDANCE_END = "출석체크가 종료되었습니다."
+        const val MSG_ALREADY_START = "이미 출석 체크가 시작되었습니다.\n 잠시후 다시 시도 해주세요."
         const val EMPTY_NUMBER = 0
+        const val COUNT_DELAY: Long = 1000
     }
 }

@@ -15,6 +15,18 @@
         android:background="@{safeUnbox(mainViewModel.isAdmin)?@color/attendance_admin_background_color:@color/attendance_basic_background_color}"
         android:focusableInTouchMode="true">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@{String.valueOf(safeUnbox(mainViewModel.isAttendanceNumberCount))}"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:visibility="@{safeUnbox(mainViewModel.isAttendanceNumberCount>0)?View.VISIBLE:View.GONE}"
+        app:layout_constraintBottom_toTopOf="@+id/imgAttendanceInput"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="SpUsage" />
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgAttendanceInput"
             android:layout_width="wrap_content"
@@ -100,7 +112,6 @@
             android:text="@{safeUnbox(mainViewModel.isAdmin)?@string/attendance_admin_guide_bottom:@string/attendance_guide_bottom}"
             android:textColor="@{safeUnbox(mainViewModel.isAdmin)?@color/white:@color/login_sub_title}"
             android:textSize="13dp"
-
             app:layout_constraintBottom_toTopOf="@+id/btnAdminAttendance"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

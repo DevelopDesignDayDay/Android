@@ -32,6 +32,6 @@ class SplashViewModel @Inject constructor(private val userRepository: UserReposi
     }
 
     companion object {
-        const val DELAY_TIME: Long = 900
+        const val DELAY_TIME: Long = 1500
     }
 }
