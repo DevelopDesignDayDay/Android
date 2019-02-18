@@ -14,6 +14,7 @@ import com.ddd.attendance.check.model.Attendance
 import com.ddd.attendance.check.utill.SharedPreferences
 import com.ddd.attendance.check.utill.SingleLiveEvent
 import kotlinx.coroutines.*
+import org.json.JSONObject
 import java.io.IOException
 import javax.inject.Inject
 
@@ -100,7 +101,7 @@ class MainViewModel @Inject constructor(
         }
 
     }
-
+    // 관리자 출첵 시작
     private suspend fun attendanceStart() {
         val response = attendanceRepository.attendanceStart()
         if (response.isSuccessful) {
@@ -121,7 +122,7 @@ class MainViewModel @Inject constructor(
             job?.join()
         }
     }
-
+    // 관리자 출첵 종료
     private suspend fun attendanceEnd() {
         val response = attendanceRepository.attendsEnd()
         if (response.isSuccessful) {
@@ -131,13 +132,29 @@ class MainViewModel @Inject constructor(
         } else _showToastError.postValue(MSG_ALREADY_START)
     }
 
-    //일반 팀원 출첵 함수
-    private fun attendanceCheck() {
-
+    //일반 팀원 출첵
+    private suspend fun attendanceCheck() {
+        GlobalScope.launch {
+            try {
+                val response = attendanceRepository.attendanceCheck(
+                    userRepository.getUsers()[0].id.toString(),
+                    editNumberAttendance.get() ?: ""
+                )
+                if (response.isSuccessful) {
+                    showDDDDialog(MSG_ATTENDANCE_SUCCESS)
+                } else {
+                    JSONObject(response.errorBody()?.string()).run {
+                        showDDDDialog(optString(KEY_MSG_OBJ_JSON, ""))
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private suspend fun Int.countDown() {
-        for (index in this downTo 1) {
+        for (index in this downTo 0) {
             _isAttendanceNumberCount.postValue(index)
             delay(COUNT_DELAY)
         }
@@ -148,9 +165,11 @@ class MainViewModel @Inject constructor(
     }
 
     companion object {
+        const val MSG_ATTENDANCE_SUCCESS = "출석체크가 완료되었습니다."
         const val MSG_ATTENDANCE_START = "출석체크가 시작되었습니다."
         const val MSG_ATTENDANCE_END = "출석체크가 종료되었습니다."
         const val MSG_ALREADY_START = "이미 출석 체크가 시작되었습니다.\n 잠시후 다시 시도 해주세요."
+        const val KEY_MSG_OBJ_JSON = "message"
         const val EMPTY_NUMBER = 0
         const val COUNT_DELAY: Long = 1000
     }

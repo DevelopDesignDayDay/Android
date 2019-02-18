@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.ddd.attendance.check.R
 import com.ddd.attendance.check.vm.MainViewModel
+import com.ddd.attendance.check.vm.MainViewModel.Companion.MSG_ATTENDANCE_SUCCESS
 import kotlinx.android.synthetic.main.dialog_ddd.*
 
 
@@ -33,7 +34,7 @@ class DDDDialog(context: Context, private val data: Pair<UserType, String>) : Di
     private fun setDialogMarkImg(message: String) {
         val background = ContextCompat.getDrawable(
             context,
-            if (message == MainViewModel.MSG_ATTENDANCE_START) R.drawable.check_icon else R.drawable.exclamation
+            if (message == MainViewModel.MSG_ATTENDANCE_START || message == MSG_ATTENDANCE_SUCCESS) R.drawable.check_icon else R.drawable.exclamation
         )
         imgMark.background = background
     }

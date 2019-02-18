@@ -1,6 +1,7 @@
 package com.ddd.attendance.check.api
 
 import com.ddd.attendance.check.model.Attendance
+import com.ddd.attendance.check.model.AttendanceCheckResponse
 import com.ddd.attendance.check.model.LoginResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -19,4 +20,8 @@ interface ApiService {
 
     @POST("/attends/end")
     fun attendsEnd(): Deferred<Response<Attendance>>
+
+    @FormUrlEncoded
+    @POST("/attends/check")
+    fun attendsCheck(@Field("userId") userId: String, @Field("number") number: String): Deferred<Response<AttendanceCheckResponse>>
 }
