@@ -1,9 +1,6 @@
 package com.ddd.attendance.check.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.ddd.attendance.check.db.entity.User
 
 @Dao
@@ -12,5 +9,9 @@ interface UserDao {
     fun getUsers(): List<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addUser(user: User)
+    suspend fun addUser(vararg user: User)
+
+
+    @Delete()
+    fun deleteUser(user: User)
 }

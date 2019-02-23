@@ -1,13 +1,11 @@
 package com.ddd.attendance.check.ui
 
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.ddd.attendance.check.R
 import com.ddd.attendance.check.base.DDDActivity
 import com.ddd.attendance.check.databinding.ActivitySplashBinding
@@ -16,7 +14,7 @@ import com.ddd.attendance.check.vm.SplashViewModel
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
-class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>() {
+class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>(), Animator.AnimatorListener {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -28,23 +26,28 @@ class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDataBinding()
+        setObserver()
+        setPlayLottie()
+    }
 
-        Glide.with(this).asGif().load(R.drawable.splash)
-            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(imgBackground)
+    private fun setPlayLottie() {
+        lottieView.playAnimation()
+        lottieView.addAnimatorListener(this)
+    }
 
-        viewModel.checkUser()
+    private fun setObserver() {
+        viewModel.result.observe(this, Observer { result ->
+            when (result) {
+                is SplashViewModel.Result.StartLoginActivity -> startActivity(result.classType)
+                is SplashViewModel.Result.StartMainActivity -> startActivity(result.classType)
+            }
 
-        viewModel.startLoginActivity.observe(this, Observer {
-            startActivity(Intent(this, it))
-            finish()
         })
+    }
 
-        viewModel.startMainActivity.observe(this, Observer {
-            startActivity(Intent(this, it))
-            finish()
-        })
-
-
+    private fun <T> startActivity(classType: Class<T>) {
+        startActivity(Intent(this, classType))
+        finish()
     }
 
     private fun setDataBinding() {
@@ -52,5 +55,18 @@ class SplashActivity : DDDActivity<ActivitySplashBinding, SplashViewModel>() {
             splashViewModel = viewModel
             setLifecycleOwner(this@SplashActivity)
         }
+    }
+
+    override fun onAnimationRepeat(animation: Animator?) {
+    }
+
+    override fun onAnimationEnd(animation: Animator?) {
+        viewModel.checkUser()
+    }
+
+    override fun onAnimationCancel(animation: Animator?) {
+    }
+
+    override fun onAnimationStart(animation: Animator?) {
     }
 }
