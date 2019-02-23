@@ -1,7 +1,6 @@
 package com.ddd.attendance.check.di.module
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import com.ddd.attendance.check.DDDApplication
 import com.ddd.attendance.check.db.DDDDataBase

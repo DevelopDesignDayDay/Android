@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="splashViewModel"
                   type="com.ddd.attendance.check.vm.SplashViewModel"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@android:color/black"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@android:color/black"
         android:layout_height="match_parent"
         tools:context=".ui.SplashActivity">
-    <ImageView
-            android:layout_margin="10dp"
-            android:id="@+id/imgBackground"
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:lottie_fileName="ddd_splash.json"
+            android:id="@+id/lottieView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,9 @@ class UserLocalDataSource @Inject constructor(private val dddDataBase: DDDDataBa
     suspend fun saveUser(user: User) {
         dddDataBase.userDao().addUser(user)
     }
-
+    fun deleteUser(user: User){
+        dddDataBase.userDao().deleteUser(user)
+    }
     fun getUsers(): List<User> {
         return dddDataBase.userDao().getUsers()
     }

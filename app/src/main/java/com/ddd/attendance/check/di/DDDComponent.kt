@@ -1,5 +1,6 @@
 import com.ddd.attendance.check.DDDApplication
 import com.ddd.attendance.check.di.module.*
+import com.ddd.attendance.check.di.module.SharedPreferencesModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -14,7 +15,8 @@ import javax.inject.Singleton
         ActivityBindingModule::class,
         AppModule::class,
         DataSource::class,
-        RepositoryModule::class]
+        RepositoryModule::class,
+        SharedPreferencesModule::class]
 )
 interface DDDComponent {
     @Component.Builder
