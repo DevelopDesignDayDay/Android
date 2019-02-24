@@ -16,63 +16,63 @@
             tools:context=".ui.LoginActivity">
 
         <TextView
-            android:id="@+id/tvSpecialTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/login_special_title"
-            android:textColor="@color/login_special_title"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toTopOf="@+id/tvMiddleTitle"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1"
-            tools:ignore="SpUsage" />
-
-        <TextView
-            android:id="@+id/tvMiddleTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/login_middle_title"
-            android:textColor="@color/login_sub_title"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toTopOf="@+id/tvBottomTitle"
-            app:layout_constraintLeft_toLeftOf="@+id/tvSpecialTitle"
-            tools:ignore="SpUsage" />
-
-        <TextView
-            android:id="@+id/tvBottomTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="82dp"
-            android:text="@string/login_bottom_title"
-            android:textColor="@color/login_sub_title"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toTopOf="@+id/editIDLayout"
-            app:layout_constraintLeft_toLeftOf="@+id/tvMiddleTitle"
-            tools:ignore="SpUsage" />
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editIDLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_input_id_hint"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/login_edit_hint"
-            android:theme="@style/LoginEditTheme"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editID"
-                android:layout_width="match_parent"
-                android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onIDTextChanged(text)}"
-                android:text="@={loginViewModel.editID}"
+                android:id="@+id/tvSpecialTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
-                tools:ignore="SpUsage" />
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_special_title"
+                android:textColor="@color/login_special_title"
+                android:textSize="26dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvMiddleTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1"
+                tools:ignore="SpUsage"/>
+
+        <TextView
+                android:id="@+id/tvMiddleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_middle_title"
+                android:textColor="@color/login_sub_title"
+                android:textSize="26dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvBottomTitle"
+                app:layout_constraintLeft_toLeftOf="@+id/tvSpecialTitle"
+                tools:ignore="SpUsage"/>
+
+        <TextView
+                android:id="@+id/tvBottomTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="82dp"
+                android:text="@string/login_bottom_title"
+                android:textColor="@color/login_sub_title"
+                android:textSize="26dp"
+                app:layout_constraintBottom_toTopOf="@+id/editIDLayout"
+                app:layout_constraintLeft_toLeftOf="@+id/tvMiddleTitle"
+                tools:ignore="SpUsage"/>
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editIDLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_input_id_hint"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/login_edit_hint"
+                android:theme="@style/LoginEditTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editID"
+                    android:layout_width="match_parent"
+                    android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onIDTextChanged(text)}"
+                    android:text="@={loginViewModel.editID}"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    tools:ignore="SpUsage"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editPWLayout"
@@ -87,13 +87,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/editIDLayout"
                 android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editPW"
-                android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onPWTextChanged(text)}"
-                android:text="@={loginViewModel.editPW}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                tools:ignore="SpUsage" />
+                    android:id="@+id/editPW"
+                    android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onPWTextChanged(text)}"
+                    android:text="@={loginViewModel.editPW}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    tools:ignore="SpUsage"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
