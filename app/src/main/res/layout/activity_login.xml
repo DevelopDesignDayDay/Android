@@ -14,14 +14,7 @@
             android:paddingStart="35dp"
             android:paddingEnd="35dp"
             tools:context=".ui.LoginActivity">
-        <ProgressBar
-                android:visibility="@{safeUnbox(loginViewModel.progressbar)? View.VISIBLE : View.GONE}"
-                android:layout_width="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tvSpecialTitle"
             android:layout_width="wrap_content"
@@ -62,10 +55,8 @@
             tools:ignore="SpUsage" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editIDLayout"
-            style="@style/LoginEditTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:hint="@string/login_input_id_hint"
             android:textColor="@android:color/black"
             android:textColorHint="@color/login_edit_hint"
@@ -80,7 +71,6 @@
                 android:onTextChanged="@{(text, start, before, count) -> loginViewModel.onIDTextChanged(text)}"
                 android:text="@={loginViewModel.editID}"
                 android:layout_height="wrap_content"
-                android:background="@null"
                 android:textSize="12dp"
                 tools:ignore="SpUsage" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,8 +83,6 @@
                 android:textColorHint="@color/login_edit_hint"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@null"
-                style="@style/LoginEditTheme"
                 android:theme="@style/LoginEditTheme"
                 app:layout_constraintTop_toBottomOf="@+id/editIDLayout"
                 android:layout_height="wrap_content">
@@ -104,7 +92,6 @@
                 android:text="@={loginViewModel.editPW}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
                 android:textSize="12dp"
                 tools:ignore="SpUsage" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -120,8 +107,16 @@
                 android:text="@string/login"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editPWLayout"
                 tools:ignore="SpUsage"/>
+
+        <ProgressBar
+                android:visibility="@{safeUnbox(loginViewModel.progressbar)? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
