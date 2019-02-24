@@ -64,7 +64,8 @@ class LoginViewModel @Inject constructor(
                                 result.refreshToken
                             )
                         )
-                    }.run { _startActivity.postValue(MainActivity::class.java) }
+                    }
+                    _startActivity.postValue(MainActivity::class.java)
                 } else {
                     errorParsingDialog(response.errorBody()?.string())
                 }

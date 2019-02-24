@@ -19,15 +19,24 @@ android {
         buildConfigField "String", "BASE_URL", "\"${props['BASE_URL']}\""
         buildConfigField "String", "BASIC_AUTH_USER_NAME", "\"${props['BASIC_AUTH_USER_NAME']}\""
         buildConfigField "String", "BASIC_AUTH_USER_PASSWORD", "\"${props['BASIC_AUTH_USER_PASSWORD']}\""
-    }
 
+    }
+    signingConfigs {
+        config {
+            keyAlias SIGNED_KEY_ALIAS
+            keyPassword SIGNED_KEY_PASSWORD
+            storeFile file(SIGNED_STORE_FILE)
+            storePassword SIGNED_STORE_PASSWORD
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfigs.config
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,21 +49,19 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation "com.google.android.material:material:1.1.0-alpha03"
+    implementation 'com.google.android.material:material:1.1.0-alpha03'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
     // room
     def room_version = "2.1.0-alpha04"
     implementation "androidx.room:room-coroutines:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
     // dagger2
     def dagger2_version = "2.21"
     implementation "com.google.dagger:dagger:$dagger2_version"
@@ -62,7 +69,6 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
-
     // retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
@@ -73,10 +79,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // aac viewModel
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     // dataBinding kotlin option
     kapt "androidx.databinding:databinding-compiler:3.3.0"
-
     implementation 'com.airbnb.android:lottie:3.0.0-beta2'
 }
