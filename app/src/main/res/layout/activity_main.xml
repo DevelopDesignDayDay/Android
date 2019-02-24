@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.VISIBLE:View.GONE}"
-            android:text='@{safeUnbox(mainViewModel.isAttendanceNumber>0)?String.valueOf(safeUnbox(mainViewModel.isAttendanceNumber)):""}'
+            android:text='@{safeUnbox(mainViewModel.isAttendanceNumber)>0?String.valueOf(safeUnbox(mainViewModel.isAttendanceNumber)):""}'
             android:textColor="@android:color/black"
             android:textSize="84dp"
             android:textStyle="bold"
@@ -138,5 +138,14 @@
             android:text="@string/attendance"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="SpUsage"/>
+
+    <ProgressBar
+            android:visibility="@{safeUnbox(mainViewModel.progressbar) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

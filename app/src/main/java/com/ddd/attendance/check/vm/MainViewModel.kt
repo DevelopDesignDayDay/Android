@@ -29,6 +29,7 @@ class MainViewModel @Inject constructor(
     private val _isAttendanceStart = MutableLiveData<Boolean>()
     private val _btnEnableLogin = MutableLiveData<Boolean>()
     private val _showToastError = MutableLiveData<String>()
+    private val _isProgressbar = MutableLiveData<Boolean>()
 
     val isAdmin: LiveData<Boolean> = _isAdmin
     val isAttendanceNumber: LiveData<Int> = _isAttendanceNumber
@@ -36,6 +37,7 @@ class MainViewModel @Inject constructor(
     val editNumberAttendance = ObservableField<String>()
     val btnEnableAttendance: LiveData<Boolean> get() = _btnEnableLogin
     val showToastError: LiveData<String> get() = _showToastError
+    val progressbar: LiveData<Boolean> = _isProgressbar
 
     val showDDDDialog = SingleLiveEvent<Pair<UserType, String>>()
     val expireToken = SingleLiveEvent<String>()
@@ -98,6 +100,7 @@ class MainViewModel @Inject constructor(
 
     // 출석 버튼 클릭
     fun attendance() {
+        _isProgressbar.value = true
         GlobalScope.launch {
             try {
                 if (isAdmin.value == true) {
@@ -105,6 +108,7 @@ class MainViewModel @Inject constructor(
                     else attendanceEnd()
                 } else attendanceCheck()
             } catch (e: IOException) {
+                _isProgressbar.postValue(false)
                 _showToastError.postValue(MSG_ATTENDANCE_END)
             }
         }
@@ -112,13 +116,16 @@ class MainViewModel @Inject constructor(
     // 관리자 출첵 시작
     private suspend fun attendanceStart() {
         val response = attendanceRepository.attendanceStart()
+        _isProgressbar.postValue(false)
         if (response.isSuccessful) attendanceStartUI(response.body())
         else errorParsingDialog(response.errorBody()?.string())
+
     }
 
     // 관리자 출첵 종료
     private suspend fun attendanceEnd() {
         val response = attendanceRepository.attendsEnd()
+        _isProgressbar.postValue(false)
         if (response.isSuccessful) {
             attendanceEndUI()
         } else _showToastError.postValue(MSG_ALREADY_START)
@@ -126,18 +133,12 @@ class MainViewModel @Inject constructor(
 
     //일반 팀원 출첵
     private suspend fun attendanceCheck() {
-        GlobalScope.launch {
-            try {
-                val response = attendanceRepository.attendanceCheck(
-                    userRepository.getUsers()[0].id.toString(),
-                    editNumberAttendance.get() ?: ""
-                )
-                if (response.isSuccessful) showDDDDialog(MSG_ATTENDANCE_SUCCESS)
-                else errorParsingDialog(response.errorBody()?.string())
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+        val response = attendanceRepository.attendanceCheck(
+            userRepository.getUsers()[0].id.toString(), editNumberAttendance.get() ?: ""
+        )
+        _isProgressbar.postValue(false)
+        if (response.isSuccessful) showDDDDialog(MSG_ATTENDANCE_SUCCESS)
+        else errorParsingDialog(response.errorBody()?.string())
     }
 
     //토큰 리프레시
@@ -146,6 +147,7 @@ class MainViewModel @Inject constructor(
             try {
                 val user = userRepository.getUsers()[0]
                 val response = userRepository.refreshToken(user.refreshToken)
+                _isProgressbar.postValue(false)
                 if (response.isSuccessful) {
                     val body = response.body()
                     userRepository.saveUsers(
@@ -163,6 +165,7 @@ class MainViewModel @Inject constructor(
                     expireToken.postValue(MSG_LOG_OUT)
                 }
             } catch (e: Exception) {
+                _isProgressbar.postValue(false)
                 e.printStackTrace()
             }
         }
