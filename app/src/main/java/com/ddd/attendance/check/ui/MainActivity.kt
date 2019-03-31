@@ -61,7 +61,7 @@ class MainActivity : DDDActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun btnAdminBackground(isAdmin: Boolean) {
-        val background = if (isAdmin) R.drawable.login_btn_impossible else R.drawable.login_btn_possible_admin
+        val background = if (isAdmin) R.drawable.login_btn_possible_admin else R.drawable.login_btn_impossible
         btnAdminAttendance.background = ContextCompat.getDrawable(this, background)
     }
 
