@@ -116,7 +116,7 @@
                 android:visibility="@{safeUnbox(mainViewModel.isAdmin)? View.VISIBLE : View.INVISIBLE}"
                 android:onClick="@{()->mainViewModel.attendance()}"
                 android:text="@{safeUnbox(mainViewModel.isAttendanceStart)? @string/attendance_end : @string/attendance_start}"
-                android:textColor="@{safeUnbox(mainViewModel.isAttendanceStart)? @color/white : @color/black}"
+                android:textColor="@{safeUnbox(mainViewModel.isAttendanceStart)? @color/black : @color/white}"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="SpUsage"/>
